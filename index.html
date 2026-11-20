@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>待辦清單看板 | Warm Minimalist Kanban</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app-container">
+    <header class="app-header">
+      <div class="header-titles">
+        <h1>待辦清單</h1>
+        <p class="subtitle">拖曳任務卡片以更新進度，有條理地管理工作與生活</p>
+      </div>
+      <div class="task-counter" aria-live="polite">
+        未完成 <span id="remaining-count">0</span> 項
+      </div>
+    </header>
+
+    <form id="todo-form" class="todo-form">
+      <input
+        type="text"
+        id="todo-input"
+        class="input-text"
+        placeholder="輸入新的待辦事項..."
+        required
+        autocomplete="off"
+        aria-label="待辦事項內容"
+      />
+      <input
+        type="text"
+        id="todo-assignee"
+        class="input-assignee"
+        placeholder="負責人（如：王小明）"
+        required
+        autocomplete="off"
+        aria-label="負責人"
+      />
+      <select id="todo-category" class="select-category" aria-label="任務分類">
+        <option value="work">工作</option>
+        <option value="life">生活</option>
+      </select>
+      <button type="submit" class="btn-add">新增任務</button>
+    </form>
+
+    <section class="todo-controls" aria-label="分類篩選">
+      <div class="filter-tabs" role="tablist">
+        <button type="button" class="filter-btn active" data-filter="all" role="tab" aria-selected="true">
+          全部 <span class="tab-count" id="count-all">0</span>
+        </button>
+        <button type="button" class="filter-btn" data-filter="work" role="tab" aria-selected="false">
+          工作 <span class="tab-count" id="count-work">0</span>
+        </button>
+        <button type="button" class="filter-btn" data-filter="life" role="tab" aria-selected="false">
+          生活 <span class="tab-count" id="count-life">0</span>
+        </button>
+      </div>
+      <button type="button" id="clear-completed-btn" class="btn-clear" hidden>
+        清除 Done 任務
+      </button>
+    </section>
+
+    <section class="kanban-board" aria-label="任務狀態看板">
+      <!-- Column 1: To-do -->
+      <div class="kanban-column" data-status="todo">
+        <div class="column-header">
+          <div class="column-title-group">
+            <span class="status-dot dot-todo"></span>
+            <h2>To-do</h2>
+          </div>
+          <span class="column-count" id="col-count-todo">0</span>
+        </div>
+        <div class="column-dropzone" id="list-todo" data-status="todo" aria-label="To-do 任務清單"></div>
+      </div>
+
+      <!-- Column 2: Process -->
+      <div class="kanban-column" data-status="process">
+        <div class="column-header">
+          <div class="column-title-group">
+            <span class="status-dot dot-process"></span>
+            <h2>Process</h2>
+          </div>
+          <span class="column-count" id="col-count-process">0</span>
+        </div>
+        <div class="column-dropzone" id="list-process" data-status="process" aria-label="Process 任務清單"></div>
+      </div>
+
+      <!-- Column 3: Done -->
+      <div class="kanban-column" data-status="done">
+        <div class="column-header">
+          <div class="column-title-group">
+            <span class="status-dot dot-done"></span>
+            <h2>Done</h2>
+          </div>
+          <span class="column-count" id="col-count-done">0</span>
+        </div>
+        <div class="column-dropzone" id="list-done" data-status="done" aria-label="Done 任務清單"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
